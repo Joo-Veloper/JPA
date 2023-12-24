@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9fbcf391-bfa0-4cbb-83a2-33b73805bd9d" name="Changes" comment="JPQL 타입 표현">
+    <list default="true" id="9fbcf391-bfa0-4cbb-83a2-33b73805bd9d" name="Changes" comment="CASE 식(Basic, Coalesce, NULLIF)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/jpql/MyH2Dialect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +93,7 @@
       <option name="presentableId" value="Default" />
       <updated>1703395739135</updated>
       <workItem from="1703395740748" duration="2187000" />
-      <workItem from="1703398091810" duration="7150000" />
+      <workItem from="1703398091810" duration="8743000" />
     </task>
     <task id="LOCAL-00001" summary="JPQL init">
       <option name="closed" value="true" />
@@ -173,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703404534861</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="CASE 식(Basic, Coalesce, NULLIF)">
+      <option name="closed" value="true" />
+      <created>1703405445905</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1703405445905</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,6 +211,7 @@
     <MESSAGE value="JOIN" />
     <MESSAGE value="서브 쿼리" />
     <MESSAGE value="JPQL 타입 표현" />
-    <option name="LAST_COMMIT_MESSAGE" value="JPQL 타입 표현" />
+    <MESSAGE value="CASE 식(Basic, Coalesce, NULLIF)" />
+    <option name="LAST_COMMIT_MESSAGE" value="CASE 식(Basic, Coalesce, NULLIF)" />
   </component>
 </project>

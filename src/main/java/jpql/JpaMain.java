@@ -1,10 +1,9 @@
 package jpql;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import javax.persistence.criteria.From;
 import java.util.List;
+
 
 public class JpaMain {
 
@@ -14,33 +13,42 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
+            Member member1 = new Member();
+            member1.setUsername("관리자1");
+            em.persist(member1);
 
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
-
-            Member member = new Member();
-            member.setUsername("관리자");
-            member.setAge(10);
-            member.setType(MemberType.ADMIN);
-
-            member.setTeam(team);
+            Member member2 = new Member();
+            member2.setUsername("관리자2");
+            em.persist(member2);
 
             em.flush();
             em.clear();
+            // 기본 함수
+//            String query = "select 'a' || 'b' from  Member m";
 
-            // 기본 CASE 식
-//            String query =
-//                    "select " +
-//                    "case when m.age <= 10 then '학생 요금' " + // 공백 추가
-//                    "when m.age >= 60 then '경로 요금' " + // 공백 추가
-//                    "else '일반요금' " +
-//                    "end " + // CASE 문 끝을 명시
-//                    "from Member m";
-            // Coalesce
-//            String query = "select coalesce(m.username, '이름 없는 회원') as username " + "from  Member m ";
-            //NULLIF
-            String query = "select nullif(m.username, '관리자') as username " + "from  Member m ";
+            // concat
+//            String query = "select concat('a', 'b') From  Member m";
+
+            // substring
+//            String query = "select substring(m.username, 2, 3) From Member m";
+
+            // locate
+//            String query = "select locate('de', 'abcdefg') From Member m";
+
+            // SIZE
+//            String query = "select size(t.members) From Team t";
+
+//            List<Integer> result = em.createQuery(query, Integer.class)
+//                    .getResultList();
+//            for (Integer s : result) {
+//                System.out.println("s = " + s);
+//            }
+
+            // INDEX
+//            @OrderColumn //컬렉션의 위치값을 구할때 사용 가능 하지만 안쓰는게 좋음!
+
+            // 사용자 정의 함수 호출
+            String query = "select group_concat(m.username) From Member m";
 
             List<String> result = em.createQuery(query, String.class)
                     .getResultList();
@@ -58,6 +66,59 @@ public class JpaMain {
         emf.close();
     }
 }
+
+//public class JpaMain {
+//
+//    public static void main(String[] args) {
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+//        EntityManager em = emf.createEntityManager();
+//        EntityTransaction tx = em.getTransaction();
+//        tx.begin();
+//        try {
+//
+//            Team team = new Team();
+//            team.setName("teamA");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("관리자");
+//            member.setAge(10);
+//            member.setType(MemberType.ADMIN);
+//
+//            member.setTeam(team);
+//
+//            em.flush();
+//            em.clear();
+//
+//            // 기본 CASE 식
+////            String query =
+////                    "select " +
+////                    "case when m.age <= 10 then '학생 요금' " + // 공백 추가
+////                    "when m.age >= 60 then '경로 요금' " + // 공백 추가
+////                    "else '일반요금' " +
+////                    "end " + // CASE 문 끝을 명시
+////                    "from Member m";
+//            // Coalesce
+////            String query = "select coalesce(m.username, '이름 없는 회원') as username " + "from  Member m ";
+//            //NULLIF
+//            String query = "select nullif(m.username, '관리자') as username " + "from  Member m ";
+//
+//            List<String> result = em.createQuery(query, String.class)
+//                    .getResultList();
+//            for (String s : result) {
+//                System.out.println("s = " + s);
+//            }
+//
+//            tx.commit();
+//        } catch (Exception e) {
+//            tx.rollback();
+//            e.printStackTrace();
+//        } finally {
+//            em.close();
+//        }
+//        emf.close();
+//    }
+//}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
