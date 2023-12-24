@@ -17,13 +17,28 @@ public class JpaMain {
             member.setAge(10);
             em.persist(member);
 
-            //TypeQuery = 반환 값이 명확할 때 사용
-            // Query = 반환 타입이 명확하지 않을 때 사용
-            TypedQuery<Member> query1 = em.createQuery("select m from Member m", Member.class);
-            // 타입 정보를 명기할 수 없을때
-            TypedQuery<String> query2 = em.createQuery("select m.username from Member m", String.class);
-            //타입 정보를 받을 수 없을때
-            Query query3 = em.createQuery("select m.username from Member m");
+//            //TypeQuery = 반환 값이 명확할 때 사용
+//            // Query = 반환 타입이 명확하지 않을 때 사용
+//            TypedQuery<Member> query1 = em.createQuery("select m from Member m", Member.class);
+//            // 타입 정보를 명기할 수 없을때
+//            TypedQuery<String> query2 = em.createQuery("select m.username from Member m", String.class);
+//            //타입 정보를 받을 수 없을때
+//            Query query3 = em.createQuery("select m.username from Member m");
+
+            //결과 조회 API
+            // 컬랙션이 반환 될꺼야!
+//            TypedQuery<Member> query = em.createQuery("select m from Member m", Member.class);
+//            List<Member> resultList = query.getResultList();
+//            for (Member member1 : resultList) {
+//                System.out.println("member1 = " + member1);
+//            }
+            // Query를 날려서 값이 무조건 하나
+            TypedQuery<Member> query = em.createQuery("select m from Member m where  m.id = 10", Member.class);
+            // query.getResultList():결과가 하나 이상일 때
+            // query.getSingleResult(): 결과가 정확히 하나 있을때만 사용!, 단일 객체 반환
+            Member result = query.getSingleResult();
+            //Spring DATA JPA -> 결과 없으면 null 이나 optional 반환!
+            System.out.println("result = " + result);
 
             tx.commit();
         } catch (Exception e) {
