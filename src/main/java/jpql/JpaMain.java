@@ -33,12 +33,22 @@ public class JpaMain {
 //                System.out.println("member1 = " + member1);
 //            }
             // Query를 날려서 값이 무조건 하나
-            TypedQuery<Member> query = em.createQuery("select m from Member m where  m.id = 10", Member.class);
-            // query.getResultList():결과가 하나 이상일 때
-            // query.getSingleResult(): 결과가 정확히 하나 있을때만 사용!, 단일 객체 반환
-            Member result = query.getSingleResult();
-            //Spring DATA JPA -> 결과 없으면 null 이나 optional 반환!
-            System.out.println("result = " + result);
+//            TypedQuery<Member> query = em.createQuery("select m from Member m where  m.id = 10", Member.class);
+//            // query.getResultList():결과가 하나 이상일 때
+//            // query.getSingleResult(): 결과가 정확히 하나 있을때만 사용!, 단일 객체 반환
+//            Member result = query.getSingleResult();
+//            //Spring DATA JPA -> 결과 없으면 null 이나 optional 반환!
+//            System.out.println("result = " + result);
+
+
+            //파라미터 바인딩
+            //이름 기준
+            Member result = em.createQuery("select m from Member m where  m.username = ?1", Member.class)
+                    .setParameter("1", "member1")
+                    .getSingleResult();
+            System.out.println("result = " + result.getUsername());
+
+            //위치 기반 -> 거의 사용 xx
 
             tx.commit();
         } catch (Exception e) {
