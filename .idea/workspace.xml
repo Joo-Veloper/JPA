@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9fbcf391-bfa0-4cbb-83a2-33b73805bd9d" name="Changes" comment="서브 쿼리">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jpql/MemberType.java" afterDir="false" />
+    <list default="true" id="9fbcf391-bfa0-4cbb-83a2-33b73805bd9d" name="Changes" comment="JPQL 타입 표현">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jpql/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/Member.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +91,7 @@
       <option name="presentableId" value="Default" />
       <updated>1703395739135</updated>
       <workItem from="1703395740748" duration="2187000" />
-      <workItem from="1703398091810" duration="6031000" />
+      <workItem from="1703398091810" duration="7150000" />
     </task>
     <task id="LOCAL-00001" summary="JPQL init">
       <option name="closed" value="true" />
@@ -167,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703402968146</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="JPQL 타입 표현">
+      <option name="closed" value="true" />
+      <created>1703404534861</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1703404534861</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,6 +200,7 @@
     <MESSAGE value="페이징" />
     <MESSAGE value="JOIN" />
     <MESSAGE value="서브 쿼리" />
-    <option name="LAST_COMMIT_MESSAGE" value="서브 쿼리" />
+    <MESSAGE value="JPQL 타입 표현" />
+    <option name="LAST_COMMIT_MESSAGE" value="JPQL 타입 표현" />
   </component>
 </project>

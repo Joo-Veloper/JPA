@@ -5,7 +5,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
-import java.util.Objects;
 
 public class JpaMain {
 
@@ -21,7 +20,7 @@ public class JpaMain {
             em.persist(team);
 
             Member member = new Member();
-            member.setUsername("teamA");
+            member.setUsername("관리자");
             member.setAge(10);
             member.setType(MemberType.ADMIN);
 
@@ -30,18 +29,23 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            // JPQL 타입 표현
-            String query = "select m.username, 'HELLO', true From Member m " +
-                    "WHERE m.type = :userType";
+            // 기본 CASE 식
+//            String query =
+//                    "select " +
+//                    "case when m.age <= 10 then '학생 요금' " + // 공백 추가
+//                    "when m.age >= 60 then '경로 요금' " + // 공백 추가
+//                    "else '일반요금' " +
+//                    "end " + // CASE 문 끝을 명시
+//                    "from Member m";
+            // Coalesce
+//            String query = "select coalesce(m.username, '이름 없는 회원') as username " + "from  Member m ";
+            //NULLIF
+            String query = "select nullif(m.username, '관리자') as username " + "from  Member m ";
 
-            List<Object[]> result = em.createQuery(query)
-                    .setParameter("userType", MemberType.ADMIN)
+            List<String> result = em.createQuery(query, String.class)
                     .getResultList();
-
-            for(Object[] objects : result) {
-                System.out.println("objects = " + objects[0]);
-                System.out.println("objects = " + objects[1]);
-                System.out.println("objects = " + objects[2]);
+            for (String s : result) {
+                System.out.println("s = " + s);
             }
 
             tx.commit();
@@ -54,6 +58,56 @@ public class JpaMain {
         emf.close();
     }
 }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------
+
+//public class JpaMain {
+//
+//    public static void main(String[] args) {
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+//        EntityManager em = emf.createEntityManager();
+//        EntityTransaction tx = em.getTransaction();
+//        tx.begin();
+//        try {
+//
+//            Team team = new Team();
+//            team.setName("teamA");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("teamA");
+//            member.setAge(10);
+//            member.setType(MemberType.ADMIN);
+//
+//            member.setTeam(team);
+//
+//            em.flush();
+//            em.clear();
+//
+//            // JPQL 타입 표현
+//            String query = "select m.username, 'HELLO', true From Member m " +
+//                    "WHERE m.type = :userType";
+//
+//            List<Object[]> result = em.createQuery(query)
+//                    .setParameter("userType", MemberType.ADMIN)
+//                    .getResultList();
+//
+//            for(Object[] objects : result) {
+//                System.out.println("objects = " + objects[0]);
+//                System.out.println("objects = " + objects[1]);
+//                System.out.println("objects = " + objects[2]);
+//            }
+//
+//            tx.commit();
+//        } catch (Exception e) {
+//            tx.rollback();
+//            e.printStackTrace();
+//        } finally {
+//            em.close();
+//        }
+//        emf.close();
+//    }
+//}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
