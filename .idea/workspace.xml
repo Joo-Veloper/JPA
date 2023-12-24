@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9fbcf391-bfa0-4cbb-83a2-33b73805bd9d" name="Changes" comment="페이징">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9fbcf391-bfa0-4cbb-83a2-33b73805bd9d" name="Changes" comment="JOIN">
       <change beforePath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jpql/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jpql/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/Team.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1703395739135</updated>
       <workItem from="1703395740748" duration="2187000" />
-      <workItem from="1703398091810" duration="4040000" />
+      <workItem from="1703398091810" duration="4773000" />
     </task>
     <task id="LOCAL-00001" summary="JPQL init">
       <option name="closed" value="true" />
@@ -148,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703400927235</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="JOIN">
+      <option name="closed" value="true" />
+      <created>1703402161619</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1703402161619</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +178,7 @@
     <MESSAGE value="파라미터 바인딩" />
     <MESSAGE value="프로젝션" />
     <MESSAGE value="페이징" />
-    <option name="LAST_COMMIT_MESSAGE" value="페이징" />
+    <MESSAGE value="JOIN" />
+    <option name="LAST_COMMIT_MESSAGE" value="JOIN" />
   </component>
 </project>
