@@ -2,6 +2,7 @@ package jpql;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 public class JpaMain {
 
@@ -41,15 +42,57 @@ public class JpaMain {
 //            System.out.println("result = " + result);
 
 
-            //파라미터 바인딩
-            //이름 기준
-            Member result = em.createQuery("select m from Member m where  m.username = ?1", Member.class)
-                    .setParameter("1", "member1")
-                    .getSingleResult();
-            System.out.println("result = " + result.getUsername());
+//            //파라미터 바인딩
+//            //이름 기준
+//            Member result = em.createQuery("select m from Member m where  m.username = ?1", Member.class)
+//                    .setParameter("1", "member1")
+//                    .getSingleResult();
+//            System.out.println("result = " + result.getUsername());
+//
+//            //위치 기반 -> 거의 사용 xx
 
-            //위치 기반 -> 거의 사용 xx
+            //영속성 컨텍스트 깔끔히 비움
+            em.flush();
+            em.clear();
 
+            // 엔티티 프로젝션
+//            List<Member> result = em.createQuery("select m from Member m", Member.class)
+//                            .getResultList();
+//            Member findMember = result.get(0);
+//            findMember.setAge(20);
+
+            // 엔티티 프로젝션
+//            List<Team> result = em.createQuery("select t from Member m join m.team t", Team.class)
+//                    .getResultList();
+
+            // 임베디드 타입 프로젝션
+//            em.createQuery("select o.address from Order o", Address.class)
+//                    .getResultList();
+//
+            // 스칼라 타입 프로젝션 (원하는것 을 막 가져옴)
+
+            // 1번쨰 방법
+//            List resultList = em.createQuery("select distinct m.username, m.age from Member m")
+//                    .getResultList();
+//            Object o = resultList.get(0);
+//            Object[] result = (Object[]) o;
+//            System.out.println("username = " + result[0]);
+//            System.out.println("age = " + result[1]);
+
+            // 2번쨰 방법
+//            List<Object[] > resultList = em.createQuery("select m.username, m.age from Member m")
+//                    .getResultList();
+//            Object[] result = resultList.get(0);
+//            System.out.println("username = " + result[0]);
+//            System.out.println("age = " + result[1]);
+//
+            // 3번째 방법
+            // 패키지가 문자이기에 한계는 있음!! -> jpql.MemberDTO
+            List<MemberDTO> result = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m",MemberDTO.class)
+                    .getResultList();
+            MemberDTO memberDTO = result.get(0);
+            System.out.println("memberDTO = " + memberDTO.getUsername());
+            System.out.println("memberDTO = " + memberDTO.getAge());
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
