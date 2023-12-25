@@ -1,9 +1,14 @@
 package jpql;
 
-import javax.persistence.*;
-import javax.persistence.criteria.From;
-import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public class JpaMain {
 
@@ -13,48 +18,60 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
+            Team team = new Team();
+            em.persist(team);
+
             Member member1 = new Member();
             member1.setUsername("관리자1");
+            member1.setTeam(team);
             em.persist(member1);
 
             Member member2 = new Member();
             member2.setUsername("관리자2");
+            member2.setTeam(team);
             em.persist(member2);
 
             em.flush();
             em.clear();
-            // 기본 함수
-//            String query = "select 'a' || 'b' from  Member m";
+            // 경로 표현식
+//            String query = "select m.username From Member m";
 
-            // concat
-//            String query = "select concat('a', 'b') From  Member m";
+            // 단일값 연관 경로
+//            String query = "select m.team From Member m"; // -> 묵시적 내부 조인 발생
+            // ManyToOne이나 OneToOne 이 오면  tema.~~ 탐색가능!
+//            String query = "select m.team From Member m";
 
-            // substring
-//            String query = "select substring(m.username, 2, 3) From Member m";
-
-            // locate
-//            String query = "select locate('de', 'abcdefg') From Member m";
-
-            // SIZE
-//            String query = "select size(t.members) From Team t";
-
-//            List<Integer> result = em.createQuery(query, Integer.class)
+            //member 연관된 소속된 팀 가져옴 ->  단일 값으로 가면 묵시적 내부 조인 발생 (조심 사용!)
+//            String query = "select m.team From Member m";
+//
+//            List<Team> result = em.createQuery(query, Team.class)
 //                    .getResultList();
-//            for (Integer s : result) {
+//            for (Team s : result) {
 //                System.out.println("s = " + s);
 //            }
 
-            // INDEX
-//            @OrderColumn //컬렉션의 위치값을 구할때 사용 가능 하지만 안쓰는게 좋음!
+            // 컬렉션 값 연관 경로 : 묵시적 내부 조인 발생 / 탐색 불가능
+//            String query = "select t.members.size From Team t";
+//
+//            Integer result = em.createQuery(query, Integer.class)
+//                    .getSingleResult();
 
-            // 사용자 정의 함수 호출
-            String query = "select group_concat(m.username) From Member m";
+            // 탐색 하고 싶으면 명시적 조인 사용!
+//            String query = "select t.members From Team t";
+//
+//            List<Collection> result = em.createQuery(query, Collection.class)
+//                    .getResultList();
+//
+//            System.out.println("result = " + result);
+            // From 절에서 명시적 조인을 하면 별칭을 얻을 수 있음!  실무에서는 묵시적 조인 안쓰는게 좋음!
+            String query = "select m.username From Team t join t.members m";
 
             List<String> result = em.createQuery(query, String.class)
                     .getResultList();
-            for (String s : result) {
-                System.out.println("s = " + s);
-            }
+
+            System.out.println("result = " + result);
+
+
 
             tx.commit();
         } catch (Exception e) {
@@ -66,6 +83,72 @@ public class JpaMain {
         emf.close();
     }
 }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------
+
+//public class JpaMain {
+//
+//    public static void main(String[] args) {
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+//        EntityManager em = emf.createEntityManager();
+//        EntityTransaction tx = em.getTransaction();
+//        tx.begin();
+//        try {
+//            Member member1 = new Member();
+//            member1.setUsername("관리자1");
+//            em.persist(member1);
+//
+//            Member member2 = new Member();
+//            member2.setUsername("관리자2");
+//            em.persist(member2);
+//
+//            em.flush();
+//            em.clear();
+//            // 기본 함수
+////            String query = "select 'a' || 'b' from  Member m";
+//
+//            // concat
+////            String query = "select concat('a', 'b') From  Member m";
+//
+//            // substring
+////            String query = "select substring(m.username, 2, 3) From Member m";
+//
+//            // locate
+////            String query = "select locate('de', 'abcdefg') From Member m";
+//
+//            // SIZE
+////            String query = "select size(t.members) From Team t";
+//
+////            List<Integer> result = em.createQuery(query, Integer.class)
+////                    .getResultList();
+////            for (Integer s : result) {
+////                System.out.println("s = " + s);
+////            }
+//
+//            // INDEX
+////            @OrderColumn //컬렉션의 위치값을 구할때 사용 가능 하지만 안쓰는게 좋음!
+//
+//            // 사용자 정의 함수 호출
+//            String query = "select group_concat(m.username) From Member m";
+//
+//            List<String> result = em.createQuery(query, String.class)
+//                    .getResultList();
+//            for (String s : result) {
+//                System.out.println("s = " + s);
+//            }
+//
+//            tx.commit();
+//        } catch (Exception e) {
+//            tx.rollback();
+//            e.printStackTrace();
+//        } finally {
+//            em.close();
+//        }
+//        emf.close();
+//    }
+//}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------
 
 //public class JpaMain {
 //
