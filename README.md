@@ -33,6 +33,24 @@ NamedQuery는 엔티티 클래스에 정의된 이름이 있는 쿼리입니다.
 #### @Query 어노테이션을 사용해서 리파지토리 인터페이스에 쿼리 직접 정의
 @Query 어노테이션을 사용하면 개발자가 직접 JPQL(Java Persistence Query Language)이나 네이티브 쿼리를 작성할 수 있습니다. 이를 통해 메소드 이름을 통한 자동 생성이나 NamedQuery를 사용하는 것보다 더 복잡한 쿼리를 정의할 수 있습니다. @Query 어노테이션을 사용할 때는 JPQL이나 네이티브 SQL을 정확히 작성하고, 필요한 경우 파라미터를 바인딩해야 합니다.</br>
 
+
+# JPA Named Query
+
+Spring에서 `@NamedQuery`는 JPA(Java Persistence API)를 사용하여 엔티티에 대한 정적인 쿼리를 정의하는 데 사용됩니다. </br>
+이를 통해 쿼리를 코드에서 분리하여 유지 보수 및 관리를 쉽게 할 수 있습니다.</br>
+
+
+`@NamedQuery`를 사용하면 엔티티 클래스에 직접 SQL 또는 JPQL(Java Persistence Query Language) 쿼리를 정의할 수 있습니다. 그러면 해당 쿼리를 호출하는 데 필요한 메서드를 생성할 수 있습니다.</br>
+#### @NamedQuery`를 사용하여 JPQL 쿼리를 정의하는 방법
+
+```
+@NamedQuery(
+        name="Member.findByUsername",
+        query="select m from Member m where m.username = :username"
+)
+```
+정의된 JPQL 쿼리는 "Employee" 엔티티에서 lastName 속성이 특정 값과 일치하는 모든 엔티티를 검색합니다. 그런 다음 이 쿼리를 호출하여 특정한 작업을 수행할 수 있습니다.
+
 </div>
 
 
