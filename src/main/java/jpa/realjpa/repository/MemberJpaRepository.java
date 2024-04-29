@@ -70,4 +70,14 @@ public class MemberJpaRepository {
                 .setParameter("age", age)
                 .getSingleResult(); // 카운트이기 때문에 getSingleResult 하면 됩니다.!!
     }
+
+    //회원 나이 한번에 변경 bulk
+
+    public int bulkAgePlus(int age) {
+        return em.createQuery(
+                "update Member m set m.age = m.age + 1 " +
+                        "where m.age >= :age")
+                .setParameter("age", age)
+                .executeUpdate();
+    }
 }
