@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @Transactional
 @Rollback(value = false)
@@ -66,6 +68,7 @@ class MemberRepositoryTest {
         long deleteCount = memberRepository.count();
         assertThat(deleteCount).isEqualTo(0);
     }
+
     @Test
     public void findByUsernameAndAgeGreaterThen() {
 
@@ -150,5 +153,43 @@ class MemberRepositoryTest {
         for (Member member : result) {
             System.out.println("member = " + member);
         }
+    }
+
+    @Test
+    public void returnType() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("BBB", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        // ex 1
+//        List<Member> aaa = memberRepository.findListByUsername("AAA");
+        // ex 2
+//        Member aaa = memberRepository.findMemberByUsername("AAA");
+
+        // ex 3
+//        Member findMember = memberRepository.findMemberByUsername("AAA");
+//        System.out.println("findMember = " + findMember);
+
+        // ex 4
+//        Optional<Member> aaa = memberRepository.findOptionalByUsername("AAA");
+//        System.out.println("findMember =" + aaa.get().getUsername());
+
+
+        // LIST 조회
+//        List<Member> result = memberRepository.findListByUsername("asfasdf");
+           /** JPA 동작 방식 에서 빈 컬렉션을 반환해줌 == result = 0 null이 아님
+            if (result != null)실무 이런 코드 xxx 안좋은 코드*/
+//        System.out.println("result = " + result.size());
+
+        /** 결과 findMember = null*/
+//        Member findMember = memberRepository.findMemberByUsername("asdfasdf");
+//        System.out.println("findMember = " + findMember);
+
+        /** 결과 findMember = Optional.empty*/
+//      DB에서 Data가 있을수 도 없을 수 도 있을때는 Optional 사용하는게 좋음
+        Optional<Member> findMember = memberRepository.findOptionalByUsername("asdfasdf");
+        System.out.println("findMember = " + findMember);
+
     }
 }
