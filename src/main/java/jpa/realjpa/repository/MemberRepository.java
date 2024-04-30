@@ -5,6 +5,7 @@ import jpa.realjpa.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +21,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     List<Member> findTop3HelloBy();
 
-//    @Query(name = "Member.findByUsername") 없어도 됨!
+    //    @Query(name = "Member.findByUsername") 없어도 됨!
     List<Member> findByUsername(@Param("username") String username);
 
     // 복잡한 JPQL 바로 넣어 사용 가능
@@ -40,7 +41,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByNames(@Param("names") Collection<String> names);
 
     List<Member> findListByUsername(String username);// 컬렉션
+
     Member findMemberByUsername(String username);//단건
+
     Optional<Member> findOptionalByUsername(String username);//단건 Optional
 
     @Query(value = "select m from Member m left join m.team t",
@@ -51,4 +54,20 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Modifying(clearAutomatically = true)
     @Query("update Member m set m.age = m.age + 1 where m.age >= :age")
     int bulkAgePlus(@Param("age") int age);
+
+    // fetch join 사용하면 멤버를 조회할때 연관된 팀을 같이 끓고 옴
+    @Query("select m from Member m left join fetch m.team")
+    List<Member> findMemberFetchJoin();
+
+    @Override
+    @EntityGraph(attributePaths = {"team"})
+    List<Member> findAll();
+
+    @EntityGraph(attributePaths = {"team"})
+    @Query("select m from Member m")
+    List<Member> findMemberEntityGraph();
+
+//    @EntityGraph(attributePaths = ("team"))
+    @EntityGraph("Member.all")
+    List<Member> findEntityGraphByUsername(@Param("username") String username);
 }
