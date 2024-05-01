@@ -300,6 +300,7 @@ class MemberRepositoryTest {
 
         em.flush();
     }
+
     @Test
     public void lock() {
         //given
@@ -309,6 +310,10 @@ class MemberRepositoryTest {
         em.clear();
         //when
         List<Member> result = memberRepository.findLockByUsername("member1");
+    }
 
+    @Test
+    public void callCustom() {
+        List<Member> result = memberRepository.findMemberCustom();
     }
 }
