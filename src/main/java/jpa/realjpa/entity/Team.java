@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Team {
+public class Team extends JpaBaseEntity{
     @Id @GeneratedValue
     @Column(name = "team_id")
     private Long id;
