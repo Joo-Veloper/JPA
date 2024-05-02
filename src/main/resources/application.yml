@@ -10,5 +10,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+#Global Setting
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        max-page-size: 2000
+        one-indexed-parameters: true
+
 logging.level:
   org.hibernate.SQL: debug
