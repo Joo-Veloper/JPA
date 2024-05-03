@@ -3,6 +3,7 @@ package jpa.realjpa.repository;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
 import jpa.realjpa.dto.MemberDto;
+import jpa.realjpa.dto.UsernameOnlyDto;
 import jpa.realjpa.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -73,4 +74,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> , MemberRe
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Member> findLockByUsername(String username);
+
+    List<UsernameOnly> findProjectionsByUsername(@Param("username") String username);
+//    List<UsernameOnlyDto> findProjectionsDtoByUsername(@Param("username") String username);
+    // 동적 프로젝션
+    <T> List<T> findProjectionsDtoByUsername(@Param("username") String username, Class<T> type);
 }
