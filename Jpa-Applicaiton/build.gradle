@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.jpabook'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // spring starter
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // p6spy
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
+    // devtools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+    // h2
+    runtimeOnly 'com.h2database:h2'
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // hibernate5
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5-jakarta'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
